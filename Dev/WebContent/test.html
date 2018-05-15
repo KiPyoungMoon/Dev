@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	detailInfoService
+	<input type="button" value="detailInfoService" id="btn1">
+	<script type="text/javascript">
+	
+	$("#btn1").click( function() {
+		alert("버튼클릭");
+		var json = new Object();
+			
+			json.id = "1";
+			
+			var data = {
+					jsonData : JSON.stringify(json)
+			}
+			
+			alert("jsonData >> " + JSON.stringify(json));
+			
+			$.ajax({
+				
+				url : "detailInfo.do",
+				type : "POST",
+				dataType : "json",
+				data : data,
+				
+				success : function(data) {
+					alert(data);
+				},
+				error : function(e){
+					alert("연결 실패");
+				}
+			})
+	})
+		
+	</script>
+</body>
+</html>

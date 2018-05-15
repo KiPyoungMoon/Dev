@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<style type="text/css">
+body {
+	align-content: center;
+	background-color: #F5F5F5;
+}
+
+h1 {
+	font-family: 'NanumSquareRound', sans-serif;
+	font-size: 300%;
+	color: #414141;
+	margin-bottom: 2%;
+}
+
+h6 {
+	font-family: 'NanumSquareRound', sans-serif;
+	font-size: 90%;
+	color: #414141;
+}
+
+#main {
+	width: 100%;
+	height: 400px;
+}
+
+#title, #container, #footer {
+	width: 80%;
+	margin: auto;
+	text-align: center;
+	padding-top: 5%;
+	padding-bottom: 5%;
+}
+
+#title {
+	height: 15%;
+	line-height: 60%;
+}
+
+#container {
+	height: 65%
+}
+
+#footer {
+	height: 20%;
+	line-height: 120%;
+}
+
+.input {
+	width: 208px;
+	height: 18px;
+	border-style: none;
+	margin-left: 40px;
+	margin-top: 8px;
+}
+
+.login { /* 로그인 폼 배경 이미지 */
+	width: 258px;
+	height: 35px;
+	margin: auto;
+	margin-top: 1%;
+}
+
+.btnSubmit {
+	display: block;
+	width: 100px;
+	height: 30px;
+	font-family: 'NanumSquareRound', sans-serif;
+}
+
+.btnSubmit: active {
+	border-style: 1px;
+	border-color: #616161;
+	border-style: solid;
+}
+</style>
+
+<meta charset="EUC-KR">
+<title>독거노인 관리 시스템</title>
+</head>
+<body>
+	<div id="main">
+		<div id="title">
+			<br> <br> <br> <br> <br>
+		</div>
+		<div id="container">
+			<h1>독거노인 생활반응 감지시스템</h1>
+			<hr width="350px">
+			<br> <br>
+			<form action="" method="post" name="loginForm" id="loginForm">
+				<div class="login" style="background: URL(imgLoginIdForm_gr.png)">
+					<input type="text" name="inputId" placeholder="아이디" class="input"
+						id="inputId">
+				</div>
+				<div class="login" style="background: URL(imgLoginPwForm_gr.png)">
+					<input type="password" name="inputPw" placeholder="비밀번호"
+						class="input" id="inputPw">
+				</div>
+				<div style="margin: auto; margin-top: 1%">
+					<a href="#" id="btnSubmit"><img src="imgBtnLogin.png"></a>
+					<!-- <input onsubmit="#" type="image" id="btnSubmit"
+						src="imgBtnLogin.png" alt="로그인"> -->
+				</div>
+			</form>
+			<br> <br>
+			<h6>
+				허가된 사용자만 접근할 수 있는 시스템 관리 페이지입니다.<br> 등록된 사용자는 로그인을 해주세요.
+			</h6>
+		</div>
+		<div id="footer"></div>
+	</div>
+	<script>
+		$("#btnSubmit").click(function() {
+			var inputId = $("#inputId").val();
+			var inputPw = $("#inputPw").val();
+
+			if (inputId != "" && inputPw != "") {
+
+				var json = new Object();
+				json.command = "manager";
+				json.id = inputId;
+				json.pw = inputPw;
+
+				var data = {
+					jsonData : JSON.stringify(json)
+				}
+
+				$.post("Login.do", data, function(result) {
+					if (result == "success") {
+						window.location.href = 'Main.jsp';
+					} else {
+						alert("등록된 계정이 아닙니다.");
+					}
+				})
+			} else {
+				if (inputId == "") {
+					alert("아이디를 입력해주세요.");
+				}
+				if (inputPw == "") {
+					alert("비밀번호를 입력해주세요.");
+				}
+			}
+		})
+	</script>
+</body>
+</html>
